@@ -10,6 +10,7 @@ biblio-style: apalike
 link-citations: yes
 github-repo: marcionicolau/r-intro-gis
 description: "This is a minimal example of using the bookdown package to write a book. The output format for this example is bookdown::gitbook."
+download: [["r-intro-gis.pdf", "PDF"], ["r-intro-gis.epub", "EPUB"]]
 ---
 
 # Prerequisites
