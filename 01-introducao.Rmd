@@ -19,29 +19,45 @@
 
 ## GIS
 
+O conjunto mínimo de pacotes para trabalhar com GIS (Geographical Information System) no R é exibido a seguir
+
+```{r, minimalPacks}
+
+libs <- c("ggmap", "rgdal", "rgeos", "maptools", "dplyr", "tidyr") # declare the list of packages to load on environment
+sapply(libs, require, character.only = TRUE) # load the required packages
+
+```
+
+Após instalar e carregar os pacotes que serão usados, é hora de realizar o download do arquivo que será trabalhado durante os exemplos.
+
+Os comandos para realizar o donwload e descompactar o arquivo no diretorio atual são executados dentro da sessão do R.
+
+```{r downloadFile, eval=FALSE}
+download.file('https://github.com/Robinlovelace/Creating-maps-in-R/zipball/master/', destfile = 'file.zip')
+```
+
+
+```{r unZip}
+unzip(zipfile = 'file.zip', exdir = 'GIS-Data')
+file.copy('GIS-Data/Robinlovelace-Creating-maps-in-R-930376b/data/', to = 'GIS-Data', recursive = TRUE)
+```
+
+
+http://github.com/zoul/Finch/zipball/master/
+
+https://github.com/Robinlovelace/Creating-maps-in-R/zipball/master/
+
 ### Bibliotecas para GIS
+
+  - ggmap
+  - rgeos
+  - rgdal
+  - maptools
 
 ### Bibliotecas para Raster
 
+ - raster
+ - rasterVis
+
 ### Shapefile
 
-
-You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
-
-Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
-
-```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
-par(mar = c(4, 4, .1, .1))
-plot(pressure, type = 'b', pch = 19)
-```
-
-Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
-
-```{r nice-tab, tidy=FALSE}
-knitr::kable(
-  head(iris, 20), caption = 'Here is a nice table!',
-  booktabs = TRUE
-)
-```
-
-You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015]. ddd aaa
