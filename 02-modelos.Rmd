@@ -1,0 +1,12 @@
+# Modelos
+
+Here is a review of existing methods.
+
+## Lineares
+
+## Gereralizações
+
+### GLM
+
+
+### SEM
