@@ -23,7 +23,10 @@ O conjunto mínimo de pacotes para trabalhar com GIS (Geographical Information S
 
 ```{r, minimalPacks}
 
-libs <- c("ggmap", "rgdal", "rgeos", "maptools", "dplyr", "tidyr") # declare the list of packages to load on environment
+libs <- c("ggmap", "rgdal", "rgeos", 
+          "maptools", "dplyr", "tidyr",
+          "raster", "rasterVis",
+          "tmap") # declare the list of packages to load on environment
 sapply(libs, require, character.only = TRUE) # load the required packages
 
 ```
@@ -33,7 +36,9 @@ Após instalar e carregar os pacotes que serão usados, é hora de realizar o do
 Os comandos para realizar o donwload e descompactar o arquivo no diretorio atual são executados dentro da sessão do R.
 
 ```{r downloadFile, eval=FALSE}
-download.file('https://github.com/Robinlovelace/Creating-maps-in-R/zipball/master/', destfile = 'file.zip')
+download.file('https://github.com/Robinlovelace/Creating-maps-in-R/zipball/master/', 
+              destfile = 'file.zip',
+              mode = 'wb')
 ```
 
 
@@ -41,11 +46,6 @@ download.file('https://github.com/Robinlovelace/Creating-maps-in-R/zipball/maste
 unzip(zipfile = 'file.zip', exdir = 'GIS-Data')
 file.copy('GIS-Data/Robinlovelace-Creating-maps-in-R-930376b/data/', to = 'GIS-Data', recursive = TRUE)
 ```
-
-
-http://github.com/zoul/Finch/zipball/master/
-
-https://github.com/Robinlovelace/Creating-maps-in-R/zipball/master/
 
 ### Bibliotecas para GIS
 
