@@ -143,7 +143,7 @@ Moran(evapo14)
 
 Também é possivel realizar outras operações com cálculos, a partir de funções definidas pelo usuário. Pode-se calcular o indice NVDI de um raster Landsat 7 pela combinação das bandas 4 e 3.
 
-$ NDVI=\frac{NIR-R}{NIR+R} $
+$$ NDVI=\frac{NIR-R}{NIR+R} $$
 
 
 
