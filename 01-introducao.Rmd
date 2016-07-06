@@ -75,13 +75,14 @@ Para iniciar os trabalhos com este tipo de arquivo e realizar algumas operaçõe
 Para carregar os arquivos que estão na pasta 'dataClass' utilizados o seguinte código
 
 ```{r rasterEvapo}
-listaArquivos <- list.files('dataClass/dados_curso_R_Evapot', pattern = '*.tif$', full.names = TRUE, include.dirs = TRUE)
+listaArquivos <- list.files('dataClass/dados_curso_R_Evapot', 
+                            pattern = '*.tif$', 
+                            full.names = TRUE)
 
 crsW84 = CRS("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
 
-evapo13 = raster(listaArquivos[1], crs = crsW84)
-evapo14 = raster(listaArquivos[2], crs = crsW84)
-
+evapo = stack(listaArquivos)
+projection(evapo) = crsW84
 ```
 
 Para saber mais sobre os códigos de projeções cartográficas acesse [http://spatialreference.org/](Spatial Reference).
