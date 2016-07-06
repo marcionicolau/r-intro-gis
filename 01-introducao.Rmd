@@ -95,7 +95,7 @@ evapo13
 
 Podemos realizar algumas operações básicas como os dados das células (pixel) do arquivo raster, veja alguns exemplos
 
-```{r rasterBasicAlgebraic}
+```{r rasterBasicAlgebraic, eval=FALSE}
 m1314=mean(evapo13, evapo14)
 cellStats(evapo13, mean)
 cellStats(evapo14, cv)
@@ -134,19 +134,20 @@ meEvapo = merge(evapo13, evapo14)
 moEvapo = mosaic(evapo13, evapo14, fun=min)
 ```
 
-Para calcular a autocorrelação espacial para uma layer raster, podemos usar __Geary__, __Moran__, __MoranLocal__, __GearyLocal__.
+Para calcular a autocorrelação espacial para uma layer raster, podemos usar _Geary_, _Moran_, _MoranLocal_, _GearyLocal_.
 
 ```{r rasterSpatialCorrelation, eval=FALSE}
 Moran(evapo13)
 Moran(evapo14)
 ```
+
 Também é possivel realizar outras operações com cálculos, a partir de funções definidas pelo usuário. Pode-se calcular o indice NVDI de um raster Landsat 7 pela combinação das bandas 4 e 3.
 
 $ NDVI=\frac{NIR-R}{NIR+R} $
 
 
 
-```{r rasterAdvancedCalc}
+```{r rasterAdvancedCalc, eval=FALSE}
 # Define the function to calculate NDVI from
 ndvCalc <- function(x) {
     ndvi <- (x[[4]] - x[[3]]) / (x[[4]] + x[[3]])
