@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata xml:lang="pt"><Esri><CreaDate>20160505</CreaDate><CreaTime>11170000</CreaTime><ArcGISFormat>1.0</ArcGISFormat><SyncOnce>TRUE</SyncOnce><DataProperties><lineage><Process ToolSource="c:\program files (x86)\arcgis\desktop10.2\ArcToolbox\Toolboxes\Spatial Analyst Tools.tbx\SetNull" Date="20160505" Time="111700">SetNull ET.mpr ET.mpr I:\Jandira_RapidEye\SBBSF2016\ET_29042014_jaiba.tif "'VALUE" &lt; -1"</Process></lineage></DataProperties></Esri></metadata>
