@@ -21,7 +21,7 @@
 
 O conjunto mínimo de pacotes para trabalhar com GIS (Geographical Information System) no R é exibido a seguir
 
-```{r, minimalPacks, eval=FALSE}
+```{r, minimalPacks, eval=TRUE}
 
 libs <- c("ggmap", "rgdal", "rgeos", 
           "maptools", "dplyr", "tidyr",
