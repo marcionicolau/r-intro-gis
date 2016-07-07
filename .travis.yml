@@ -12,6 +12,7 @@ addons:
       - libproj-dev
       - libhdf5-serial-dev
       - libhdf5-dev
+      - libhdf5-7
       
 r_packages:
   - raster
