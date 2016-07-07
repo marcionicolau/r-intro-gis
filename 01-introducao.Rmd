@@ -21,7 +21,7 @@
 
 O conjunto mínimo de pacotes para trabalhar com GIS (Geographical Information System) no R é exibido a seguir
 
-```{r, minimalPacks}
+```{r, minimalPacks, eval=FALSE}
 
 libs <- c("ggmap", "rgdal", "rgeos", 
           "maptools", "dplyr", "tidyr",
@@ -42,7 +42,7 @@ download.file('https://github.com/Robinlovelace/Creating-maps-in-R/zipball/maste
 ```
 
 
-```{r unZip}
+```{r unZip, eval=FALSE}
 unzip(zipfile = 'file.zip', exdir = 'GIS-Data')
 file.copy('GIS-Data/Robinlovelace-Creating-maps-in-R-930376b/data/', to = 'GIS-Data', recursive = TRUE)
 ```
@@ -68,28 +68,28 @@ O R armazena o arquivo raster de tres formas a saber:
   - RasterStack: conjunto de layers (RasterLayer) que são armazenados e processados a partir dos arquivos originias (em disco)
   - RasterBrick: conjunto de layers (RasterBrick) combinado para otimizar o trabalho em memória, todas as informações são armazenadas internamente no R.
   
-Para iniciar os trabalhos com este tipo de arquivo e realizar algumas operações básicas, iremos trabalhar com dois arquivos raster sobre Evapotranspiração (2013 e 2014) gentilmente cedidos (?) para os trabalhos durante o curso.
+Para iniciar os trabalhos com este tipo de arquivo e realizar algumas operações básicas, iremos trabalhar com dois arquivos raster sobre Evapotranspiração (2013 e 2014) gentilmente cedidos por Jusssara? (CNPM) para os trabalhos durante o curso.
 
 #### Evapotranspiração
 
 Para carregar os arquivos que estão na pasta 'dataClass' utilizados o seguinte código
 
-```{r rasterEvapo}
+```{r rasterEvapo, eval=FALSE}
 listaArquivos <- list.files('dataClass/dados_curso_R_Evapot', 
                             pattern = '*.tif$', 
                             full.names = TRUE)
 
 crsW84 = CRS("+proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0")
-
+# CRS("+init=epsg:31983")
 evapo = stack(listaArquivos)
 projection(evapo) = crsW84
 ```
 
-Para saber mais sobre os códigos de projeções cartográficas acesse [http://spatialreference.org/](Spatial Reference).
+Para saber mais sobre os códigos de projeções cartográficas acesse (http://spatialreference.org/)[Spatial Reference].
 
 Podemos verificar o resumo do arquivo (sumário) com o comando
 
-```{r rasterEvapoSummary}
+```{r rasterEvapoSummary, eval=FALSE}
 evapo13
 ```
 
@@ -129,7 +129,7 @@ mean(values(crop(evapo14, drawExtent())))
 
 Para agrupar Layers podemos usar as funções _merge_ e _mosaic_.
 
-```{r rasterMergeMosaic}
+```{r rasterMergeMosaic, eval=FALSE}
 meEvapo = merge(evapo13, evapo14)
 moEvapo = mosaic(evapo13, evapo14, fun=min)
 ```
@@ -141,7 +141,7 @@ Moran(evapo13)
 Moran(evapo14)
 ```
 
-Também é possivel realizar outras operações com cálculos, a partir de funções definidas pelo usuário. Pode-se calcular o indice NVDI de um raster Landsat 7 pela combinação das bandas 4 e 3.
+Também é possivel realizar outras operações com cálculos, a partir de funções definidas pelo usuário. Pode-se calcular o indice NDVI de um raster Landsat 7 pela combinação das bandas 4 e 3.
 
 $$ NDVI=\frac{NIR-R}{NIR+R} $$
 
@@ -170,5 +170,24 @@ ndviLL <- projectRaster(evapo13, crs='+proj=longlat')
 Também é possível utilizar modelos para fazer previsões em dados de raster. Para tanto, utilizamos a função _predict_. Se o modelo faz uso da posição (x e y) como variável é necessário utilizar a função _interpolate_.
 
 
-### Shapefile
+### Shapefile e Raster (Exemplo)
 
+Para carregar os shape file vamos utilizado o seguinte comando
+
+```{r shapeBorder, eval=FALSE}
+arquivos = gsub(pattern = "(.*)\\..*", 
+                replacement = "\\1", 
+                list.files("data/shape/Dividido", 
+                           pattern = glob2rx('*.shp')))
+
+dividido = lapply(arquivos, function(x) readOGR("data/shape/Dividido", x))
+
+shpP <- do.call(rbind,lapply(seq_len(length(dividido)), 
+                             function(x) as(spChFIDs(dividido[[x]], 
+                                                     as.character(x)), 
+                                            Class = "SpatialPolygons")))
+shpP
+plot(shpP)
+```
+
+O próximo passo e habilitar para os arquivos raster para uso. Para a estrutura dos dados e para o correto funcionamento do processo, neste exemplo os dados de NVDI foram ajustados pela seguinte forma $$ NVDI = NVDI / 10000 $$. Cabe ressaltar que este ajuste é devido ao pré-processamento realizado anteriormente nos arquivos. Todos os dados destes esperimento foram gentilmente cedidos por Sandra ? (CNPM).
