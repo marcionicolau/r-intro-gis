@@ -187,7 +187,7 @@ shpP <- do.call(rbind,lapply(seq_len(length(dividido)),
                                                      as.character(x)), 
                                             Class = "SpatialPolygons")))
 shpP
-plot(shpP)
+plot(shpP, axes = TRUE)
 ```
 
 O próximo passo e habilitar para os arquivos raster para uso. Para a estrutura dos dados e para o correto funcionamento do processo, neste exemplo os dados de NVDI foram ajustados pela seguinte forma $$ NVDI = NVDI / 10000 $$. Cabe ressaltar que este ajuste é devido ao pré-processamento realizado anteriormente nos arquivos. Todos os dados destes esperimento foram gentilmente cedidos por Sandra ? (CNPM).
