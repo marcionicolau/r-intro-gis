@@ -26,7 +26,7 @@ O conjunto mínimo de pacotes para trabalhar com GIS (Geographical Information S
 libs <- c("ggmap", "rgdal", "rgeos", 
           "maptools", "dplyr", "tidyr",
           "raster", "rasterVis",
-          "tmap") # declare the list of packages to load on environment
+          "tmap", "leaflet") # declare the list of packages to load on environment
 sapply(libs, require, character.only = TRUE) # load the required packages
 
 ```
