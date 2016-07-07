@@ -191,3 +191,11 @@ plot(shpP, axes = TRUE)
 ```
 
 O próximo passo e habilitar para os arquivos raster para uso. Para a estrutura dos dados e para o correto funcionamento do processo, neste exemplo os dados de NVDI foram ajustados pela seguinte forma $$ NVDI = NVDI / 10000 $$. Cabe ressaltar que este ajuste é devido ao pré-processamento realizado anteriormente nos arquivos. Todos os dados destes esperimento foram gentilmente cedidos por Sandra ? (CNPM).
+
+
+É possível verificar os código para utilizar com a função _CRS_ podemos utilizar o seguinte comando no R
+
+```{r crsOptions, eval=FALSE}
+EPSG <- make_EPSG() # create data frame of available EPSG codes EPSG[grepl("WGS 84$", EPSG$note), ] # search for WGS 84 code
+```
+
