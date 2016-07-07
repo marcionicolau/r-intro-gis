@@ -9,11 +9,15 @@ addons:
     packages:
       - libxml2-dev
       - libproj-dev
+      - libgdal1-dev
+      - gdal-bin
+      - libgdal1h
       
 r_packages:
   - raster
   - rasterVis
   - tmap
+  - readxl
   
 r_github_packages:
   - rstudio/bookdown
