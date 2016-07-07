@@ -1,0 +1,13 @@
+Package: RIntroGIS
+Type: Package
+Title: R Into GIS
+Version: 0.1.0
+Author: Marcio Nicolau <marcio.nicolau@embrapa.br>
+Maintainer: Marcio Nicolau <marcio.nicolau@embrapa.br>
+Description: More about what it does (maybe more than one line)
+    Use four spaces when indenting paragraphs within the Description.
+License: GPL
+Encoding: UTF-8
+LazyData: true
+Depends: raster, rasterVis, tmap, ggplot2, devtools, ggmap, dplyr, tidyr, readr
+Remotes: rstudio/bookdown, hadley/readxl
