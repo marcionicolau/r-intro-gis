@@ -9,6 +9,3 @@ Description: More about what it does (maybe more than one line)
 License: GPL
 Encoding: UTF-8
 LazyData: true
-Depends: raster, rasterVis, tmap, ggplot2, devtools, ggmap, 
-    dplyr, tidyr, readr, rgeos, rgdal, leaflet
-Remotes: rstudio/bookdown, hadley/readxl

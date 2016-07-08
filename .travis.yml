@@ -9,16 +9,30 @@ addons:
     packages:
       - libxml2-dev
       - libproj-dev
-      
+
+r_binary_packages:
+  - rgdal
+  
 r_packages:
   - raster
   - rasterVis
   - tmap
   - readxl
+  - leaflet
+  - ggplot2
+  - devtools
+  - ggmap
+  - dplyr
+  - tidyr
+  - readr
+  - rgeos
+  - leaflet
+  - shiny
   
 r_github_packages:
   - rstudio/bookdown
-   
+  - hadley/readxl
+  
 before_install:
   - sudo add-apt-repository -ry "deb http://cran.rstudio.com//bin/linux/ubuntu $(lsb_release -cs)/"
   - sudo add-apt-repository -ry "ppa:marutter/c2d4u"
