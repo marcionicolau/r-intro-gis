@@ -20,9 +20,9 @@ r_github_packages:
   - rstudio/bookdown
    
 before_install:
-  - add-apt-repository -ry "deb http://cran.rstudio.com//bin/linux/ubuntu $(lsb_release -cs)/"
-  - add-apt-repository -ry "ppa:marutter/c2d4u"
-  - apt-get update -qq
+  - sudo add-apt-repository -ry "deb http://cran.rstudio.com//bin/linux/ubuntu $(lsb_release -cs)/"
+  - sudo add-apt-repository -ry "ppa:marutter/c2d4u"
+  - sudo apt-get update -qq
   - sudo apt-get install -y libgdal1-dev gdal-bin libgdal1h
   - sudo add-apt-repository -y "deb http://cran.rstudio.com//bin/linux/ubuntu $(lsb_release -cs)/"
   - sudo add-apt-repository -y "ppa:marutter/c2d4u"
@@ -36,7 +36,7 @@ script:
   - ./_build.sh
   - ./_deploy.sh
   
-sudo: false
+sudo: required
 
 cache:
   packages: false
