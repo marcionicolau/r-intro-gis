@@ -2,11 +2,50 @@
 
 Here is a review of existing methods.
 
+```{r loadDataMultModdel, eval=TRUE, echo=FALSE, cache=TRUE}
+library(readxl)
+dadosX <- read_excel("dataClass/multivariada/data.xlsx",
+sheet = "environ", skip = 1)
+
+dadosY <- read_excel("dataClass/multivariada/data.xlsx",
+                    sheet = 1, skip = 1)
+
+names(dadosX)[1] <- names(dadosY)[1] <- "rio"
+```
+
+
 ## Lineares
 
 ## Gereralizações
 
 ### GLM
+
+```{r glmSample}
+dim(dadosX)
+dim(dadosY)
+
+# dadosY <- dadosY[-nrow(dadosY),]
+
+contagem<-apply(dadosY[,-1], MARGIN = 1, FUN = sum)
+
+ifelse(dadosY[1,-1] > 0,1, 0) 
+
+bino <- sapply(1:nrow(dadosY), function(x) sum(ifelse(dadosY[x,-1] > 0,1, 0)))
+
+dados = data.frame(dadosX, contagem, bino)
+View(dados)
+
+mCont <- glm(contagem~LMC+Ca+pH+OD+IW1, data = dadosX,
+             family = 'poisson')
+
+mChance <- glm(cbind(bino,49)~LMC+Ca+pH+OD+IW1, data = dadosX,
+             family = binomial(link = 'logit'))
+
+summary(mCont)
+summary(mChance)
+```
+
+
 
 
 ### SEM
