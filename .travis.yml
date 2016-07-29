@@ -45,7 +45,6 @@ r_packages:
 
 r_github_packages:
   - rstudio/bookdown
-  - hadley/readxl
   
 before_script:
   - chmod +x ./_build.sh
