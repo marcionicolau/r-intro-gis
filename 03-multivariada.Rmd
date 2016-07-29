@@ -2,6 +2,92 @@
 
 We describe our methods in this chapter.
 
+```{r mutivar}
+library(readxl)
+dadosX <- read_excel("dataClass/multivariada/data.xlsx",
+sheet = "environ", skip = 1)
+
+dadosY <- read_excel("dataClass/multivariada/data.xlsx",
+                    sheet = 1, skip = 1)
+
+names(dadosX)[1] <- names(dadosY)[1] <- "rio"
+
+# View(dadosX)
+
+dim(dadosX)
+
+rownames(dadosX) = dadosX[,1]
+dadosX = dadosX[,-1]
+# ACP
+
+pcaDados = princomp(cor(dadosX), cor = TRUE)
+# View(cor(dadosX))
+
+summary(pcaDados)
+screeplot(pcaDados)
+biplot(pcaDados)
+abline(h=0,v=0, lty = 2, col = 'red')
+
+biplot(pcaDados, choices = c(1,3))
+abline(h=0,v=0, lty = 2, col = 'red')
+
+biplot(pcaDados, choices = c(2,3))
+abline(h=0,v=0, lty = 2, col = 'red')
+
+as.matrix(pcaDados$loadings)
+pcaDados$scores
+
+# Agrupamentos
+
+set.seed(201607)
+kmDados5 <- kmeans(dadosX, 5)
+kmDados5
+
+kmDados4 <- kmeans(dadosX, 4)
+kmDados4
+
+kmDados3 <- kmeans(dadosX, 3)
+kmDados3
+
+dadosAnova <- data.frame(rio=rownames(dadosX), 
+                         dadosX)
+dadosAnova[['grp3']] = factor(kmDados3$cluster)
+dadosAnova[['grp4']] = factor(kmDados4$cluster)
+
+View(dadosAnova)
+
+summary(aov(pH~grp3, data = dadosAnova))
+summary(aov(pH~grp4, data = dadosAnova))
+
+
+## Modelos
+
+dim(dadosX)
+dim(dadosY)
+
+# dadosY <- dadosY[-nrow(dadosY),]
+
+contagem<-apply(dadosY[,-1], MARGIN = 1, FUN = sum)
+
+ifelse(dadosY[1,-1] > 0,1, 0) 
+
+bino <- sapply(1:nrow(dadosY), function(x) sum(ifelse(dadosY[x,-1] > 0,1, 0)))
+
+dados = data.frame(dadosX, contagem, bino)
+View(dados)
+
+mCont <- glm(contagem~LMC+Ca+pH+OD+IW1, data = dadosX,
+             family = 'poisson')
+
+mChance <- glm(cbind(bino,49)~LMC+Ca+pH+OD+IW1, data = dadosX,
+             family = binomial(link = 'logit'))
+
+summary(mCont)
+summary(mChance)
+
+```
+
+
 ## Agrupamentos
 
 ### Métodos supervisionados

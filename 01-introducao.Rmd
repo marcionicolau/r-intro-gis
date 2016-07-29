@@ -36,6 +36,7 @@ Após instalar e carregar os pacotes que serão usados, é hora de realizar o do
 Os comandos para realizar o donwload e descompactar o arquivo no diretorio atual são executados dentro da sessão do R.
 
 ```{r downloadFile, eval=TRUE}
+if(!file.exists('file.zip'))
 download.file('https://github.com/Robinlovelace/Creating-maps-in-R/zipball/master/', 
               destfile = 'file.zip',
               mode = 'wb')
