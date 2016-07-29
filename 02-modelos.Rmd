@@ -33,12 +33,12 @@ ifelse(dadosY[1,-1] > 0,1, 0)
 bino <- sapply(1:nrow(dadosY), function(x) sum(ifelse(dadosY[x,-1] > 0,1, 0)))
 
 dados = data.frame(dadosX, contagem, bino)
-View(dados)
+# View(dados)
 
-mCont <- glm(contagem~LMC+Ca+pH+OD+IW1, data = dadosX,
+mCont <- glm(contagem~LMC+Ca+pH+OD+IW1, data = dados,
              family = 'poisson')
 
-mChance <- glm(cbind(bino,49)~LMC+Ca+pH+OD+IW1, data = dadosX,
+mChance <- glm(cbind(bino,49)~LMC+Ca+pH+OD+IW1, data = dados,
              family = binomial(link = 'logit'))
 
 summary(mCont)
