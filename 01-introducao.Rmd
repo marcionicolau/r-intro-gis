@@ -200,3 +200,100 @@ O próximo passo e habilitar para os arquivos raster para uso. Para a estrutura 
 EPSG <- make_EPSG() # create data frame of available EPSG codes EPSG[grepl("WGS 84$", EPSG$note), ] # search for WGS 84 code
 ```
 
+
+#### Pastagens
+
+```{r pastLibs}
+libs <- c('rgdal', 'rgeos', 'ggmap', 
+          'raster', 'rasterVis',
+          'dplyr', 'tidyr',
+          'RColorBrewer',
+          'zoo')
+
+sapply(libs, require, character.only = TRUE)
+
+```
+
+
+Carregar o shapefile para delimitar a área posteriormente
+
+```{r pastShape}
+arquivos = gsub(pattern = "(.*)\\..*", 
+                replacement = "\\1", 
+                list.files("dataClass/pastagens/Shapes/Dividido", 
+                           pattern = glob2rx('*.shp')))
+
+dividido = lapply(arquivos, function(x) readOGR("dataClass/pastagens/Shapes/Dividido", x))
+
+shpP <- do.call(rbind,lapply(seq_len(length(dividido)), 
+                             function(x) as(spChFIDs(dividido[[x]], 
+                                                     as.character(x)), 
+                                            Class = "SpatialPolygons")))
+shpP
+plot(shpP, axes = TRUE)
+```
+
+Raster data
+
+```{r pastRaster}
+rasterP = stack(list.files("dataClass/pastagens/Imagens/NDVI", 
+                           recursive = TRUE,
+                           full.names = TRUE))/10000
+
+names(rasterP)
+
+mRasterP = mask(rasterP, shpP)
+
+```
+
+Operações básicas
+
+```{r pastRasterBasic}
+
+as.numeric(cellStats(mRasterP, 'cv'))
+as.numeric(cellStats(mRasterP, 'mean'))
+
+
+plot(rasterP[[3]])
+mean(values(crop(rasterP[[3]], drawExtent())))
+
+names(rasterP)
+
+freq(rasterP[[3]])
+
+```
+
+
+All other operations
+
+```{r pastRasterSample}
+bDate = as.Date(gsub('X(\\d{2})\\.(\\d{2})\\.(\\d{4}).*', 
+             '\\3-\\2-\\1', 
+             names(rasterP)))
+mRasterP1 <- setZ(mRasterP, bDate)
+names(mRasterP1) = as.character(bDate)
+levelplot(mRasterP1, main = 'Titulo', 
+          sub = 'explicacao')
+
+levelplot(mRasterP1, layers = 3, 
+          margin = list(FUN = 'median'), 
+          contour=TRUE)
+
+p <- levelplot(mRasterP1, layers=1, margin = list(FUN = median))
+p + layer(sp.lines(shpP, lwd=3, col='darkgray'))
+
+mRP2 <- raster(mRasterP1, 2)
+mmRP2 <- cellStats(mRP2, mean)
+levelplot(mRP2 - mmRP2, par.settings = YlOrRdTheme)
+
+
+
+xyplot(X2013.10.10+X2013.11.11~X2013.12.13|cut(x, 4), data = mRasterP1, auto.key = list(space='right'))
+# splom(mRasterP1)
+histogram(mRasterP1)
+densityplot(mRasterP1)
+bwplot(mRasterP1)
+histogram(mRasterP1, FUN = as.yearqtr)
+
+```
+
