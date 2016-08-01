@@ -2,7 +2,7 @@
 
 Here is a review of existing methods.
 
-```{r loadDataMultModdel, eval=TRUE, echo=FALSE, cache=TRUE}
+```{r loadDataMultModdel, eval=TRUE, echo=FALSE}
 library(readxl)
 dadosX <- read_excel("dataClass/multivariada/data.xlsx",
 sheet = "environ", skip = 1)
@@ -20,7 +20,7 @@ names(dadosX)[1] <- names(dadosY)[1] <- "rio"
 
 ### GLM
 
-```{r glmSample}
+```{r glmSample, echo=TRUE, eval=TRUE}
 dim(dadosX)
 dim(dadosY)
 
