@@ -229,9 +229,16 @@ shpP <- do.call(rbind,lapply(seq_len(length(dividido)),
                              function(x) as(spChFIDs(dividido[[x]], 
                                                      as.character(x)), 
                                             Class = "SpatialPolygons")))
+
+```
+
+Conhecendo o objeto shapefile e gerar o gráfico da área de interesse
+
+```{r pastShapeDetails, eval=TRUE, echo=TRUE}
 shpP
 plot(shpP, axes = TRUE)
 ```
+
 
 Raster data
 
@@ -255,7 +262,7 @@ as.numeric(cellStats(mRasterP, 'mean'))
 
 
 plot(rasterP[[3]])
-mean(values(crop(rasterP[[3]], drawExtent())))
+# mean(values(crop(rasterP[[3]], drawExtent())))
 
 names(rasterP)
 
@@ -272,28 +279,48 @@ bDate = as.Date(gsub('X(\\d{2})\\.(\\d{2})\\.(\\d{4}).*',
              names(rasterP)))
 mRasterP1 <- setZ(mRasterP, bDate)
 names(mRasterP1) = as.character(bDate)
+```
+
+```{r pastRasterOp1}
 levelplot(mRasterP1, main = 'Titulo', 
           sub = 'explicacao')
+```
 
+```{r pastRasterOp2}
 levelplot(mRasterP1, layers = 3, 
           margin = list(FUN = 'median'), 
           contour=TRUE)
+```
 
+```{r pastRasterOp3}
 p <- levelplot(mRasterP1, layers=1, margin = list(FUN = median))
 p + layer(sp.lines(shpP, lwd=3, col='darkgray'))
+```
 
+```{r pastRasterOp4}
 mRP2 <- raster(mRasterP1, 2)
 mmRP2 <- cellStats(mRP2, mean)
 levelplot(mRP2 - mmRP2, par.settings = YlOrRdTheme)
+```
 
-
-
+```{r pastRasterOp5}
 xyplot(X2013.10.10+X2013.11.11~X2013.12.13|cut(x, 4), data = mRasterP1, auto.key = list(space='right'))
 # splom(mRasterP1)
-histogram(mRasterP1)
-densityplot(mRasterP1)
-bwplot(mRasterP1)
-histogram(mRasterP1, FUN = as.yearqtr)
-
 ```
+```{r pastRasterOp6}
+histogram(mRasterP1)
+```
+
+```{r pastRasterOp7}
+densityplot(mRasterP1)
+```
+
+```{r pastRasterOp8}
+bwplot(mRasterP1)
+```
+
+```{r pastRasterOp9}
+histogram(mRasterP1, FUN = as.yearqtr)
+```
+
 
